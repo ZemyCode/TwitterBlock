@@ -18,7 +18,7 @@ document.addEventListener("scroll", () => hidePromotedTweets());
 
 //handle promoted tweets which load after the page
 const observer = new PerformanceObserver((list) => {
-  hidePromotedTweets();
+  list.forEach(hidePromotedTweets());
 });
 
 observer.observe({ type: "largest-contentful-paint", buffered: true });
