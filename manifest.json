@@ -1,0 +1,15 @@
+{
+    "manifest_version": 2,
+   
+    "name": "TwitterBlock",
+    "version": "0.1.0",
+    "description": "Removes promoted tweets",
+   
+    "content_scripts": [{
+        "matches": [
+            "http://www.twitter.com/*",
+            "https://twitter.com/*"
+        ],
+        "js": ["content.js"]
+    }]
+}
