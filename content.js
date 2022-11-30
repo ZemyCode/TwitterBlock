@@ -16,10 +16,11 @@ function hidePromotedTweets() {
 document.addEventListener("load", () => {
   timeline = document.querySelector(timelineDiv);
   hidePromotedTweets();
+  startInterval();
 });
 
-//check for promoted tweets when user scrolls
-document.addEventListener("scroll", () => hidePromotedTweets());
+//check for promoted tweets when user scrolls (temporarily disabled since setInterval is being tested)
+// document.addEventListener("scroll", () => hidePromotedTweets());
 
 //handle promoted tweets which load after the page
 const observer = new PerformanceObserver(() => {
@@ -30,8 +31,8 @@ const observer = new PerformanceObserver(() => {
 observer.observe({ type: "largest-contentful-paint", buffered: true });
 
 //attempted solution for non LCP browsers
-timeline.addEventListener("load", () => {
-  setTimeout(() => {
+function startInterval() {
+  timeline.setInterval(() => {
     hidePromotedTweets();
   }, 1000);
-});
+}
