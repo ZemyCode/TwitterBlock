@@ -21,4 +21,11 @@ const observer = new PerformanceObserver((list) => {
   list.forEach(hidePromotedTweets());
 });
 
+//LCP only supported in Chromium based browsers, not Firefox or Safari
 observer.observe({ type: "largest-contentful-paint", buffered: true });
+
+//an imperfect solution for non LCP browsers, depends on user's page load time
+//one second seems safe
+if (document.readyState == "complete") {
+  delay(1000).then(() => hidePromotedTweets());
+}
