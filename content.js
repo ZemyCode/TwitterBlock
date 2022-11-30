@@ -11,7 +11,12 @@ function hidePromotedTweets() {
 }
 
 //check for promoted tweets on page load
-document.addEventListener("load", () => hidePromotedTweets());
+document.addEventListener("load", () => {
+  hidePromotedTweets(); //hide instantly on load
+  setTimeout(() => {
+    hidePromotedTweets();
+  }, 1500); //hide again after 1.5 seconds (imperfect solution for non LCP browsers)
+});
 
 //check for promoted tweets when user scrolls
 document.addEventListener("scroll", () => hidePromotedTweets());
@@ -23,9 +28,3 @@ const observer = new PerformanceObserver((list) => {
 
 //LCP only supported in Chromium based browsers, not Firefox or Safari
 observer.observe({ type: "largest-contentful-paint", buffered: true });
-
-//an imperfect solution for non LCP browsers, depends on user's page load time
-//one second seems safe
-if (document.readyState == "complete") {
-  delay(1000).then(() => hidePromotedTweets());
-}
